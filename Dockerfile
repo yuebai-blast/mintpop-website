@@ -16,8 +16,9 @@ ENV MISE_DATA_DIR=/mise \
     MISE_CACHE_DIR=/mise/cache \
     MISE_INSTALL_PATH=/usr/local/bin/mise \
     PATH=/mise/shims:$PATH
+# libatomic1：mise 装的 pnpm 独立二进制运行时依赖它（slim 底座默认不带，缺则 pnpm 报 libatomic.so.1）
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl git ca-certificates \
+    && apt-get install -y --no-install-recommends curl git ca-certificates libatomic1 \
     && rm -rf /var/lib/apt/lists/* \
     && curl https://mise.run | sh
 
