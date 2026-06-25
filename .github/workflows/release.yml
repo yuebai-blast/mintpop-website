@@ -83,7 +83,7 @@ jobs:
 
       - name: Build changelog
         id: changelog
-        uses: mikepenz/release-changelog-builder-action@v5
+        uses: mikepenz/release-changelog-builder-action@v6
         with:
           # 直推 main 无 PR：按提交（commit）构建，不依赖 PR
           mode: COMMIT
