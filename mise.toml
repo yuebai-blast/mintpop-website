@@ -34,5 +34,29 @@ run = "docker build -t mint-ai-club:local ."
 
 [tasks.release]
 description = "发版：改版本号→提交→打tag→推送（参数：<版本号> [本次更新说明]）"
+usage = '''
+arg "<version>" help="版本号，如 0.2.0"
+arg "[notes]" help="本次更新说明（可选；给了就打 annotated tag，让重点在 Release 置顶）"
+'''
 # tag 推到 GitHub 后由 release.yml 构建推镜像并创建 GitHub Release
-run = "bash scripts/release.sh"
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+
+VERSION="${usage_version#v}"          # 去掉可能误带的 v 前缀
+NOTES="${usage_notes:-}"
+TAG="v${VERSION}"
+
+[ -z "$(git status --porcelain)" ] || { echo "工作区有未提交改动，请先处理后再发版。" >&2; exit 1; }
+! git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null || { echo "tag ${TAG} 已存在。" >&2; exit 1; }
+
+npm version "$VERSION" --no-git-tag-version --allow-same-version >/dev/null
+# 版本号有变化才提交；与当前一致（如首发）则直接对 HEAD 打 tag
+if [ -n "$(git status --porcelain)" ]; then
+  git add package.json && git commit -m "chore: release ${TAG}"
+fi
+
+if [ -n "$NOTES" ]; then git tag -a "$TAG" -m "$NOTES"; else git tag "$TAG"; fi
+git push origin HEAD && git push origin "$TAG"
+echo "已发版 ${TAG}，GitHub Actions 将构建推送镜像并创建 GitHub Release。"
+'''
