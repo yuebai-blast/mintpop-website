@@ -21,8 +21,20 @@ mise run preview     # 预览生产构建产物
 mise run typecheck   # 仅类型检查
 mise run lint        # ESLint 代码检查（本地修复加 --fix）
 mise run image       # 本地构建生产镜像
+mise run up          # docker compose 拉起部署容器（nginx 暴露 80）
+mise run down        # 停止并移除部署容器
 mise run release 0.2.0 "本次更新说明"   # 发版：改版本号→提交→打 tag→推送
 ```
+
+### docker compose 部署
+
+```bash
+docker login ghcr.io                         # 私有镜像，先登录
+MINT_TAG=0.1.0 docker compose up -d          # 拉指定版本（默认 latest），宿主端口可用 MINT_PORT 覆盖
+```
+
+镜像内为 nginx 托管的静态站点，容器暴露 `80`；构建上下文裁剪走 `Dockerfile.dockerignore`
+（per-Dockerfile ignore，BuildKit 优先于仓库根的通用 `.dockerignore`）。
 
 ## 部署与发版
 

@@ -1,0 +1,16 @@
+# per-Dockerfile ignore：BuildKit 优先用「Dockerfile 路径 + .dockerignore 后缀」这份，
+# 不再读仓库根的通用 .dockerignore。pattern 仍相对 context 根（仓库根）书写。
+# 尽量缩小构建上下文，加快上传与缓存命中。
+node_modules
+dist
+dist-ssr
+.git
+.github
+.idea
+.claude
+.vscode
+*.log
+.DS_Store
+# 构建用不到的部署/文档文件
+compose.yaml
+README.md

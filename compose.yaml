@@ -1,0 +1,21 @@
+# 生产部署：拉取 GHCR 已发布镜像，跑 nginx 暴露 80 端口。
+#   - 默认拉 latest，可用 MINT_TAG 指定版本：MINT_TAG=0.1.0 docker compose up -d
+#   - 宿主端口可用 MINT_PORT 覆盖（默认 80）
+#   - 镜像为私有，服务器需先 `docker login ghcr.io` 才能拉取
+#   - 本地构建调试：docker compose up -d --build（走下面的 build 配置）
+services:
+  web:
+    image: ghcr.io/yuebai-blast/mint-ai-club:${MINT_TAG:-latest}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mint-ai-web
+    restart: unless-stopped
+    ports:
+      - "${MINT_PORT:-80}:80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/ >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
