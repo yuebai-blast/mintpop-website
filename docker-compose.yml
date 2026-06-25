@@ -2,13 +2,10 @@
 #   - 默认拉 latest，可用 MINT_TAG 指定版本：MINT_TAG=0.1.0 docker compose up -d
 #   - 宿主端口可用 MINT_PORT 覆盖（默认 80）
 #   - 镜像为私有，服务器需先 `docker login ghcr.io` 才能拉取
-#   - 本地构建调试：docker compose up -d --build（走下面的 build 配置）
+#   - 镜像由 CI（release.yml）构建并推送；本地要构建镜像用 `mise run image`，不归 compose 管
 services:
   web:
     image: ghcr.io/yuebai-blast/mint-ai-club:${MINT_TAG:-latest}
-    build:
-      context: .
-      dockerfile: Dockerfile
     container_name: mint-ai-web
     restart: unless-stopped
     ports:

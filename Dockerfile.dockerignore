@@ -12,5 +12,5 @@ dist-ssr
 *.log
 .DS_Store
 # 构建用不到的部署/文档文件
-compose.yaml
+docker-compose.yml
 README.md
