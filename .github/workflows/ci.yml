@@ -1,0 +1,16 @@
+name: CI
+
+# 质量门禁：PR 与推送到 main 时跑 lint + 类型检查 + 构建。
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Quality
+    uses: ./.github/workflows/quality.yml

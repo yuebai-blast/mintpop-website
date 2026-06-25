@@ -1,0 +1,27 @@
+name: Quality
+
+# 可复用质量门禁：lint + 类型检查 + 构建。
+# CI（合并前）与发版（推镜像前）共用同一份定义，避免漂移（DRY）。
+on:
+  workflow_call:
+
+jobs:
+  quality:
+    name: Lint & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up mise
+        uses: jdx/mise-action@v2
+
+      - name: Install dependencies
+        run: mise run install
+
+      - name: Lint
+        run: mise run lint
+
+      # build 任务内含 vue-tsc 类型检查（vue-tsc -b && vite build）
+      - name: Typecheck & Build
+        run: mise run build

@@ -1,0 +1,13 @@
+# 单镜像仓：用根 .dockerignore 即可，尽量缩小构建上下文
+node_modules
+dist
+dist-ssr
+.git
+.github
+.idea
+.claude
+.vscode
+*.log
+.DS_Store
+# 构建用不到的本地/文档文件
+README.md

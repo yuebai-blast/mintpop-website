@@ -24,5 +24,10 @@ description = "仅做 TypeScript / 模板类型检查"
 run = "pnpm vue-tsc -b"
 
 [tasks.lint]
-description = "ESLint 检查并自动修复"
-run = "pnpm eslint . --fix"
+description = "ESLint 代码检查（CI 门禁用，不自动改写；本地修复加 --fix）"
+run = "pnpm eslint ."
+
+[tasks.image]
+description = "构建生产镜像（多阶段：mise 构建 dist + nginx 托管）"
+# 不设 dir：默认在仓库根（mise.toml 所在地）运行，末尾 . 即根 context
+run = "docker build -t mint-ai-club:local ."
