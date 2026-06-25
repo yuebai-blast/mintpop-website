@@ -91,7 +91,7 @@ jobs:
             {
               "label_extractor": [
                 {
-                  "pattern": "^(feat|fix|perf|refactor|revert|build|chore|ci|docs|style|test)[(!:]",
+                  "pattern": "^(feat|fix|perf|refactor|revert|build|chore|ci|docs|style|test)[^:]*:.*",
                   "target": "$1",
                   "on_property": "title"
                 }
@@ -116,6 +116,8 @@ jobs:
           CHANGELOG: ${{ steps.changelog.outputs.changelog }}
         run: |
           : > notes.md
+          # checkout 对 tag 触发常只落指向 commit 的轻量本地 ref，强制拉一次 annotated tag 对象
+          git fetch --force origin "refs/tags/${TAG}:refs/tags/${TAG}" >/dev/null 2>&1 || true
           # 轻量 tag 直接指向 commit，%(contents) 会误把 commit 信息当注释，故先判类型
           if [ "$(git cat-file -t "$TAG")" = "tag" ]; then
             git tag -l --format='%(contents)' "$TAG" >> notes.md
