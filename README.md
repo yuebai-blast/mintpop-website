@@ -19,8 +19,20 @@ mise run run         # 启动开发服务器
 mise run build       # 类型检查 + 生产构建
 mise run preview     # 预览生产构建产物
 mise run typecheck   # 仅类型检查
-mise run lint        # ESLint 检查并修复
+mise run lint        # ESLint 代码检查（本地修复加 --fix）
+mise run image       # 本地构建生产镜像
+mise run release 0.2.0 "本次更新说明"   # 发版：改版本号→提交→打 tag→推送
 ```
+
+## 部署与发版
+
+- **镜像**：多阶段 `Dockerfile` 产出 nginx 静态镜像，暴露 `80` 端口；单 amd64，私有部署型。
+- **CI 门禁**（`ci.yml`）：PR / push main 跑 lint + 类型检查 + 构建。
+- **发版**（`release.yml`）：打 `vX.Y.Z` tag 触发 → 过质量门禁 → 构建并推送镜像到 GHCR
+  （`ghcr.io/<owner>/mint-ai-club`，非预发布版自动带 `latest`）→ 创建 GitHub Release。
+- **GitHub Release 正文** = annotated tag 注释（本次重点，置顶）+ 按提交类型过滤的 changelog
+  （只收录 `feat`/`fix`/`perf`/`refactor`/`revert`，过滤 docs/chore/ci 等噪声）。
+- 发版统一走 `mise run release <版本号> [说明]`，带「说明」会打 annotated tag 让重点置顶。
 
 ## 目录结构
 
