@@ -1,0 +1,28 @@
+# 工具链与命令统一收口到 mise（版本锁死，命令走 task）
+[tools]
+node = "24.16.0"
+pnpm = "11.9.0"
+
+[tasks.install]
+description = "安装/更新项目全部依赖"
+run = "pnpm install"
+
+[tasks.run]
+description = "启动开发服务器（唯一需要启动的组件）"
+run = "pnpm vite"
+
+[tasks.build]
+description = "类型检查 + 生产构建"
+run = "pnpm vue-tsc -b && pnpm vite build"
+
+[tasks.preview]
+description = "本地预览生产构建产物"
+run = "pnpm vite preview"
+
+[tasks.typecheck]
+description = "仅做 TypeScript / 模板类型检查"
+run = "pnpm vue-tsc -b"
+
+[tasks.lint]
+description = "ESLint 检查并自动修复"
+run = "pnpm eslint . --fix"
