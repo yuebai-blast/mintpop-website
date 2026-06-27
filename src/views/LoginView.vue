@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import PlaceholderPage from '@/components/PlaceholderPage.vue'
+import { useSeo } from '@/composables/useSeo'
+
+useSeo('LOGIN')
 </script>
 
 <template>

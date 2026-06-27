@@ -13,7 +13,7 @@ run = "pnpm vite"
 
 [tasks.build]
 description = "类型检查 + 生产构建"
-run = "pnpm vue-tsc -b && pnpm vite build"
+run = "pnpm vue-tsc -b && pnpm vite-ssg build"
 
 [tasks.preview]
 description = "本地预览生产构建产物"

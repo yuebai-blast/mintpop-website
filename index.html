@@ -3,15 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- 站点图标：mintpop 标记（cloud 浅底瓦片） -->
+    <!-- 防闪烁:首屏 paint 前按记忆/系统偏好定 data-theme,与 useTheme 的键值保持一致 -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('mint-theme')
+          var theme =
+            saved === 'LIGHT' || saved === 'DARK'
+              ? saved
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'DARK'
+                : 'LIGHT'
+          document.documentElement.dataset.theme = theme
+        } catch (e) {}
+      })()
+    </script>
+    <!-- 站点图标:mintpop 标记(cloud 浅底瓦片) -->
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
+    <!-- title/description 由各页 useHead 动态接管;此处保留首页文案作无 JS 兜底 -->
     <title>mintpop — One API for text, vision, and voice</title>
     <meta
       name="description"
       content="mintpop — multimodal AI infrastructure for developers. Build text, vision, and voice into your product through a single, unified endpoint."
     />
-    <!-- 设计稿指定的三套字体：Fredoka（logo）、Newsreader（标题衬线）、Space Grotesk（正文） -->
+    <!-- 设计稿指定的三套字体:Fredoka(logo)、Newsreader(标题衬线)、Space Grotesk(正文) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
