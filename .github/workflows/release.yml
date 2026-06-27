@@ -29,7 +29,7 @@ jobs:
       packages: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # 私有部署型（amd64）：不上 QEMU，但保留 Buildx 以用 gha 层缓存
       - name: Set up Buildx
@@ -76,7 +76,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # COMMIT 模式需要全量历史，才能定位上个同前缀 tag
           fetch-depth: 0
