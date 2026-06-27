@@ -1,16 +1,16 @@
 # 生产部署：拉取 GHCR 已发布镜像，跑 nginx 暴露 80 端口。
-#   - 默认拉 latest，可用 MINT_TAG 指定版本：MINT_TAG=0.1.0 docker compose up -d
-#   - 宿主端口可用 MINT_PORT 覆盖（默认 80）
+#   - 默认拉 latest，可用 MINTPOP_TAG 指定版本：MINTPOP_TAG=0.1.0 docker compose up -d
+#   - 宿主端口可用 MINTPOP_PORT 覆盖（默认 80）
 #   - 镜像为私有，服务器需先 `docker login ghcr.io` 才能拉取
 #   - 镜像由 CI（release.yml）构建并推送；本地要构建镜像用 `mise run image`，不归 compose 管
 services:
   web:
-    image: ghcr.io/yuebai-blast/mint-ai-club:${MINT_TAG:-latest}
-    container_name: mint-ai-web
+    image: ghcr.io/yuebai-blast/mintpop-website:${MINTPOP_TAG:-latest}
+    container_name: mintpop-web
     restart: unless-stopped
     ports:
       # 只绑宿主 127.0.0.1，不对外网暴露（对外由宿主上的反向代理接管）
-      - "127.0.0.1:${MINT_PORT:-80}:80"
+      - "127.0.0.1:${MINTPOP_PORT:-80}:80"
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/ >/dev/null 2>&1 || exit 1"]
       interval: 30s

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 品牌 Logo：Mint·AI，中间一个 accent 圆点。size 控制字号（header 24 / footer 22）
+// 品牌 Logo：mintpop，词尾一个 accent 圆点作点缀。size 控制字号（header 24 / footer 22）
 withDefaults(
   defineProps<{
     size?: number
@@ -10,12 +10,11 @@ withDefaults(
 
 <template>
   <span class="brand" :style="{ fontSize: `${size}px` }">
-    <span class="brand-word brand-mint">Mint</span>
+    <span class="brand-word">mintpop</span>
     <span
       class="brand-dot"
       :style="{ width: `${size / 3}px`, height: `${size / 3}px` }"
     ></span>
-    <span class="brand-word brand-ai">AI</span>
   </span>
 </template>
 
@@ -31,14 +30,6 @@ withDefaults(
   font-weight: 600;
   line-height: 1;
   color: var(--text);
-}
-
-.brand-mint {
-  letter-spacing: -0.01em;
-}
-
-.brand-ai {
-  letter-spacing: 0.01em;
 }
 
 .brand-dot {

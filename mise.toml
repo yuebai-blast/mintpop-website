@@ -30,7 +30,7 @@ run = "pnpm eslint ."
 [tasks.image]
 description = "构建生产镜像（多阶段：mise 构建 dist + nginx 托管）"
 # 不设 dir：默认在仓库根（mise.toml 所在地）运行，末尾 . 即根 context
-run = "docker build -t mint-ai-club:local ."
+run = "docker build -t mintpop-website:local ."
 
 [tasks.up]
 description = "拉起部署容器（docker compose，后台运行，nginx 暴露 80）"

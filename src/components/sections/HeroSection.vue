@@ -13,7 +13,7 @@ import { RouterLink } from 'vue-router'
       <div class="badge">
         <span class="badge-icon">✦</span>
         <span class="badge-text">
-          Mint AI &nbsp;·&nbsp; Multimodal AI infrastructure for developers
+          mintpop &nbsp;·&nbsp; Multimodal AI infrastructure for developers
         </span>
       </div>
 
