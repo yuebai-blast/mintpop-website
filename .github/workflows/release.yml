@@ -124,10 +124,15 @@ jobs:
             printf '\n\n' >> notes.md
           fi
           printf '%s\n' "$CHANGELOG" >> notes.md
+          # 空正文兜底：注释为空 + 变更日志被全过滤（有提交但全是 chore/ci/docs）时
+          # 正文会整篇空白，action 的 empty_content 兜不住这种情形，这里统一判空补占位
+          if [ -z "$(tr -d '[:space:]' < notes.md)" ]; then
+            echo "- 本次无面向用户的变更" > notes.md
+          fi
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           # 标题 = 产品名 + 版本号（ref_name 形如 v0.1.0）
-          name: Mint AI ${{ github.ref_name }}
+          name: mintpop ${{ github.ref_name }}
           body_path: notes.md

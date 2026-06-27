@@ -41,30 +41,67 @@ description = "停止并移除部署容器"
 run = "docker compose down"
 
 [tasks.release]
-description = "发版：改版本号→提交→打tag→推送（参数：<版本号> [本次更新说明]）"
+description = "发版：改版本号→提交→打tag→推送（两参数均可选，按形状消歧）"
+# 两个无语义占位 arg：语义在脚本里据形状判定，不把第一个固定命名成 version
+#   release                  -> 最新稳定 tag 的 patch+1，无说明
+#   release "更新说明"        -> patch+1，且带说明
+#   release v0.4.0           -> 指定版本号，无说明
+#   release v0.4.0 "更新说明" -> 指定版本号 + 说明
 usage = '''
-arg "<version>" help="版本号，如 0.2.0"
-arg "[notes]" help="本次更新说明（可选；给了就打 annotated tag，让重点在 Release 置顶）"
+arg "[arg1]" help="版本号(如 v0.2.0) 或 本次更新说明；按形状判定（像版本号就当版本号）"
+arg "[arg2]" help="本次更新说明（仅当 arg1 是版本号时才作为说明）"
 '''
 # tag 推到 GitHub 后由 release.yml 构建推镜像并创建 GitHub Release
 run = '''
 #!/usr/bin/env bash
 set -euo pipefail
 
-VERSION="${usage_version#v}"          # 去掉可能误带的 v 前缀
-NOTES="${usage_notes:-}"
+A1="${usage_arg1:-}"
+A2="${usage_arg2:-}"
+VER_RE='^v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.]+)?$'
+
+# 参数消歧：传两个则第一个必是版本号、第二个是说明；
+# 只传一个时长得像 v?X.Y.Z 就当版本号，否则当说明。
+if [ -n "$A2" ]; then
+  RAW_VERSION="$A1"; NOTES="$A2"
+  [[ "$RAW_VERSION" =~ $VER_RE ]] || { echo "传两个参数时第一个必须是版本号（如 v0.2.0），当前为：${A1}" >&2; exit 1; }
+elif [ -n "$A1" ]; then
+  if [[ "$A1" =~ $VER_RE ]]; then RAW_VERSION="$A1"; NOTES=""; else RAW_VERSION=""; NOTES="$A1"; fi
+else
+  RAW_VERSION=""; NOTES=""
+fi
+
+# 一次 fetch 同时供「自动算版本号」与「main 落后检查」复用
+git fetch origin main --tags >/dev/null 2>&1
+
+# 解析版本号：未显式给则取最新稳定 tag 的 patch+1（git 内置版本排序，禁用 sort -V）
+if [ -z "$RAW_VERSION" ]; then
+  LATEST="$(git tag -l --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n1)"
+  [ -n "$LATEST" ] || { echo "未找到稳定 tag，无法自动递增；请显式传版本号（如 v0.1.0）。" >&2; exit 1; }
+  base="${LATEST#v}"
+  IFS=. read -r MA MI PA <<<"$base"
+  VERSION="${MA}.${MI}.$((PA + 1))"
+else
+  VERSION="${RAW_VERSION#v}"
+fi
 TAG="v${VERSION}"
 
+# 发版前校验：任一不过即中止、绝不打 tag
+[[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.]+)?$ ]] || { echo "版本号格式非法：${TAG}" >&2; exit 1; }
+[ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] || { echo "当前不在 main 分支，发版中止。" >&2; exit 1; }
 [ -z "$(git status --porcelain)" ] || { echo "工作区有未提交改动，请先处理后再发版。" >&2; exit 1; }
 ! git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null || { echo "tag ${TAG} 已存在。" >&2; exit 1; }
+[ "$(git rev-list --count HEAD..origin/main)" = "0" ] || { echo "本地 main 落后于 origin/main，请先 pull。" >&2; exit 1; }
 
+# 版本号承载在 package.json：先改并提交，再打 tag
 npm version "$VERSION" --no-git-tag-version --allow-same-version >/dev/null
-# 版本号有变化才提交；与当前一致（如首发）则直接对 HEAD 打 tag
 if [ -n "$(git status --porcelain)" ]; then
   git add package.json && git commit -m "chore: release ${TAG}"
 fi
 
+# 有说明 → annotated（注释会被 Release 流程置顶）；无说明 → 轻量 tag
 if [ -n "$NOTES" ]; then git tag -a "$TAG" -m "$NOTES"; else git tag "$TAG"; fi
-git push origin HEAD && git push origin "$TAG"
+# 先推 main 再推 tag，由 tag 触发发布 workflow
+git push origin main && git push origin "$TAG"
 echo "已发版 ${TAG}，GitHub Actions 将构建推送镜像并创建 GitHub Release。"
 '''
