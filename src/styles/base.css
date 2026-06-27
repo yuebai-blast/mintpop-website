@@ -7,6 +7,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* 吸顶 header 高 74px,锚点跳转时为目标留出等高偏移(再加一点呼吸空间),
+     避免 section 标题被 header 盖住;原生 #hash 跳转与路由 scrollIntoView 均生效 */
+  scroll-padding-top: 90px;
 }
 
 body {
