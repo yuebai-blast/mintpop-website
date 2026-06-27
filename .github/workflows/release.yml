@@ -33,10 +33,10 @@ jobs:
 
       # 私有部署型（amd64）：不上 QEMU，但保留 Buildx 以用 gha 层缓存
       - name: Set up Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Log in to GHCR
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -44,7 +44,7 @@ jobs:
 
       - name: Docker metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.IMAGE }}
           # 单组件仓：type=semver 默认剥掉 v 前缀（vX.Y.Z -> X.Y.Z）
@@ -56,7 +56,7 @@ jobs:
             latest=auto
 
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: Dockerfile
@@ -131,7 +131,7 @@ jobs:
           fi
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           # 标题 = 产品名 + 版本号（ref_name 形如 v0.1.0）
           name: mintpop ${{ github.ref_name }}
