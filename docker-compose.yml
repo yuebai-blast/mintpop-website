@@ -6,7 +6,7 @@
 services:
   web:
     image: ghcr.io/yuebai-blast/mintpop-website:${MINTPOP_TAG:-latest}
-    container_name: mintpop-web
+    container_name: mintpop-website
     restart: unless-stopped
     ports:
       # 只绑宿主 127.0.0.1，不对外网暴露（对外由宿主上的反向代理接管）
