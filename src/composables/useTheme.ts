@@ -17,8 +17,11 @@ const DEFAULT_ACCENT = '#14C28A'
 const theme = ref<Theme>(resolveInitialTheme())
 const accent = ref<string>(DEFAULT_ACCENT)
 
-/** 读取初始主题：localStorage 记忆优先，其次跟随系统偏好，最后回退浅色 */
+/** 读取初始主题:SSR 阶段无浏览器全局,回退浅色;客户端按 localStorage→系统偏好→浅色 */
 function resolveInitialTheme(): Theme {
+  if (typeof window === 'undefined') {
+    return Theme.LIGHT
+  }
   const saved = localStorage.getItem(STORAGE_KEY_THEME)
   if (saved === Theme.LIGHT || saved === Theme.DARK) {
     return saved
@@ -27,8 +30,11 @@ function resolveInitialTheme(): Theme {
   return prefersDark ? Theme.DARK : Theme.LIGHT
 }
 
-/** 把当前主题与主题色同步到 :root 上（CSS 变量驱动整页配色） */
+/** 把当前主题与主题色同步到 :root 上(CSS 变量驱动整页配色);SSR 阶段无 document,直接跳过 */
 function applyToDocument(): void {
+  if (typeof document === 'undefined') {
+    return
+  }
   const root = document.documentElement
   root.dataset.theme = theme.value
   root.style.setProperty('--accent', accent.value)
