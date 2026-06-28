@@ -117,15 +117,15 @@ import { RouterLink } from 'vue-router'
   height: 560px;
   background: linear-gradient(
     150deg,
-    #0e9e72 0%,
-    #14c28a 45%,
-    rgba(20, 194, 138, 0) 92%
+    #0fb389 0%,
+    #17d1a7 45%,
+    rgba(23, 209, 167, 0) 92%
   );
   -webkit-mask-image: radial-gradient(#000 2px, transparent 2.2px);
   mask-image: radial-gradient(#000 2px, transparent 2.2px);
   -webkit-mask-size: 20px 20px;
   mask-size: 20px 20px;
-  opacity: 0.13;
+  opacity: 0.14;
 }
 
 .deco-dots-ink {
@@ -146,8 +146,8 @@ import { RouterLink } from 'vue-router'
   height: 480px;
   background: radial-gradient(
     closest-side,
-    rgba(20, 194, 138, 0.16),
-    rgba(20, 194, 138, 0) 72%
+    rgba(23, 209, 167, 0.18),
+    rgba(23, 209, 167, 0) 72%
   );
   filter: blur(10px);
 }
@@ -246,7 +246,7 @@ import { RouterLink } from 'vue-router'
   color: #fff;
   background: var(--accent);
   padding: 15px 28px;
-  box-shadow: 0 6px 18px rgba(20, 194, 138, 0.32);
+  box-shadow: 0 6px 18px rgba(23, 209, 167, 0.34);
 }
 
 .btn-primary:hover {

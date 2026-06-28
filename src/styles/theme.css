@@ -1,54 +1,57 @@
 /*
- * 主题变量系统：完整还原设计稿 renderVals 里的 Light / Dark 两套配色。
- * - accent 主题色可配置（默认 #14C28A），由 useTheme 写到 :root 的 --accent 上。
+ * 主题变量系统：配色对齐 mintpop 品牌手册（brand/kit/README.md）。
+ * - 主色取品牌手册实采样：Mint #17D1A7 / Deep #0FB389 / Bright #1FE3AD。
+ * - 中性色据品牌底色 Cloud #F4F8F6（冷绿）+ Ink #0B0B0C 和谐推导，整体偏冷绿调。
+ * - 字体仍沿用设计稿：标题 Newsreader、正文 Space Grotesk、Logo Fredoka（本文件不涉及字体）。
+ * - accent 主题色可配置（默认 #17D1A7），由 useTheme 写到 :root 的 --accent 上。
  * - 浅色为默认（:root）；深色通过 [data-theme="DARK"] 覆盖。
- * - 变量命名沿用设计稿（--bg/--card/--text/--text2/--border 等），便于逐一对照。
  */
 
 :root {
   /* 主题色（accent 由 JS 动态写入，这里给默认兜底） */
-  --accent: #14c28a;
-  --accent-deep: #0e9e72;
+  --accent: #17d1a7;
+  --accent-deep: #0fb389;
+  --accent-bright: #1fe3ad;
 
   /* ---- Light 配色 ---- */
-  --bg: #fafaf8;
+  --bg: #f4f8f6;
   --card: #ffffff;
-  --ink: #1a1a1a;
-  --border: #eceae3;
-  --border2: #e0ddd4;
-  --text: #1a1a1a;
-  --text2: #5a5852;
-  --muted: #efede7;
-  --ph: #9a968c;
-  --cream: #f4f3ef;
-  --footer: #f4f3ef;
+  --ink: #0b0b0c;
+  --border: #e3e9e6;
+  --border2: #d6deda;
+  --text: #0b0b0c;
+  --text2: #586460;
+  --muted: #eaf0ed;
+  --ph: #97a29d;
+  --cream: #edf3f0;
+  --footer: #edf3f0;
   --pill: rgba(255, 255, 255, 0.72);
-  --pill-border: #eceae3;
-  --bar: rgba(250, 250, 248, 0.82);
+  --pill-border: #e3e9e6;
+  --bar: rgba(244, 248, 246, 0.82);
 
-  --accent-soft: rgba(20, 194, 138, 0.08);
-  --accent-soft2: rgba(20, 194, 138, 0.16);
-  --accent-border: #bfebdc;
+  --accent-soft: rgba(23, 209, 167, 0.09);
+  --accent-soft2: rgba(23, 209, 167, 0.16);
+  --accent-border: #b9ebdd;
 }
 
 :root[data-theme='DARK'] {
   /* ---- Dark 配色 ---- */
-  --bg: #0e100e;
-  --card: #181a18;
-  --ink: #d8d5cc;
-  --border: #2a2d2a;
-  --border2: #313431;
-  --text: #f2f1ec;
-  --text2: #b6b3aa;
-  --muted: #222522;
-  --ph: #6e6a60;
-  --cream: #1e211e;
-  --footer: #141613;
-  --pill: rgba(24, 26, 24, 0.7);
-  --pill-border: #2a2d2a;
-  --bar: rgba(14, 16, 14, 0.82);
+  --bg: #0a0c0b;
+  --card: #141816;
+  --ink: #e8edeb;
+  --border: #232a27;
+  --border2: #2c342f;
+  --text: #f0f4f2;
+  --text2: #a8b2ae;
+  --muted: #1c2320;
+  --ph: #6a746f;
+  --cream: #161d1a;
+  --footer: #0e1210;
+  --pill: rgba(20, 24, 22, 0.7);
+  --pill-border: #232a27;
+  --bar: rgba(10, 12, 11, 0.82);
 
-  --accent-soft: rgba(20, 194, 138, 0.14);
-  --accent-soft2: rgba(20, 194, 138, 0.22);
-  --accent-border: #1e4a3c;
+  --accent-soft: rgba(23, 209, 167, 0.14);
+  --accent-soft2: rgba(23, 209, 167, 0.22);
+  --accent-border: #1c4a3d;
 }
