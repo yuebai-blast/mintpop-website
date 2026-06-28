@@ -18,8 +18,9 @@
 
 ## 字体
 
-- **Fredoka**（SemiBold）— 词标与展示标题（与原 logo 字形一致的圆润几何无衬线）。
-- **Inter** — UI 与正文（Regular / Medium / SemiBold）。
+- **Fredoka**（SemiBold）— 词标 / Logo（与原 logo 字形一致的圆润几何无衬线）。
+- **Newsreader** — 展示标题（衬线体，用于 Hero 等大标题）。
+- **Space Grotesk** — UI 与正文（Regular / Medium / SemiBold）。
 
 ## 物料清单
 
