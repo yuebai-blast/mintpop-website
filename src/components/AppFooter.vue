@@ -104,7 +104,7 @@ import BrandLogo from '@/components/BrandLogo.vue'
   border-radius: 13px;
   background: var(--card);
   border: 1px solid var(--accent-border);
-  box-shadow: 0 3px 12px rgba(20, 194, 138, 0.1);
+  box-shadow: 0 3px 12px rgba(23, 209, 167, 0.1);
 }
 
 .operated-icon {
