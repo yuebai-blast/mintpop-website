@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router'
 
 import BrandLogo from '@/components/BrandLogo.vue'
 import { useTheme } from '@/composables/useTheme'
+import { CONSOLE_URL } from '@/config/site'
 
 const { isDark, toggleTheme } = useTheme()
 </script>
@@ -32,7 +33,14 @@ const { isDark, toggleTheme } = useTheme()
       >
         <span class="theme-icon">{{ isDark() ? '☀' : '☾' }}</span>
       </button>
-      <RouterLink to="/login" class="login-btn">Login</RouterLink>
+      <a
+        :href="CONSOLE_URL"
+        target="_blank"
+        rel="noopener"
+        class="login-btn"
+      >
+        Login
+      </a>
     </div>
   </header>
 </template>
