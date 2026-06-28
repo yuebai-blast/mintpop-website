@@ -46,7 +46,7 @@ import BrandLogo from '@/components/BrandLogo.vue'
         <span class="operated-loc">United States</span>
       </div>
 
-      <p class="copyright">© 2026 mintpop. All rights reserved.</p>
+      <p class="copyright">© 2026 MintPop. All rights reserved.</p>
     </div>
   </footer>
 </template>

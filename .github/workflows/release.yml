@@ -134,5 +134,5 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           # 标题 = 产品名 + 版本号（ref_name 形如 v0.1.0）
-          name: mintpop ${{ github.ref_name }}
+          name: MintPop ${{ github.ref_name }}
           body_path: notes.md

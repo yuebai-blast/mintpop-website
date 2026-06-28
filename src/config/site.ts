@@ -2,7 +2,7 @@ import { SEO } from './seo'
 
 // 站点级常量:生产域名等绝对 URL 的唯一来源,改这里全站生效
 export const SITE_URL = 'https://mintpop.ai'
-export const SITE_NAME = 'mintpop'
+export const SITE_NAME = 'MintPop'
 
 // 控制台地址:Get Started 等入口跳转目标,改这里全站生效
 export const CONSOLE_URL = 'https://console.mintpop.ai'

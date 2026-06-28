@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 品牌 Logo：使用 mintpop 词标图（已裁掉留白、白底抠成透明）。
+// 品牌 Logo：使用 MintPop 词标图（已裁掉留白、白底抠成透明）。
 // 浅色界面用深色词标（黑字），深色界面用浅色词标（白字），按主题切换图源。
 // size 沿用原文字 logo 的字号语义（header 24 / footer 22 / 占位页 26），
 // 这里按比例换算成图片高度，使视觉大小与原文字 logo 接近。
@@ -29,7 +29,7 @@ const height = props.size * 1.3
   <img
     class="brand-img"
     :src="wordmark"
-    alt="mintpop"
+    alt="MintPop"
     :style="{ height: `${height}px` }"
   />
 </template>

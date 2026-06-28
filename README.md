@@ -1,6 +1,6 @@
-# mintpop 官网前端
+# MintPop 官网前端
 
-mintpop 落地页的前端实现，依据设计稿 `Mint Website.dc.html` 还原，采用 Vue3 生态。
+MintPop 落地页的前端实现，依据设计稿 `Mint Website.dc.html` 还原，采用 Vue3 生态。
 
 ## 技术栈
 
@@ -55,7 +55,7 @@ src/
 ├── components/
 │   ├── AppHeader.vue          # 顶部导航（含主题切换）
 │   ├── AppFooter.vue          # 页脚
-│   ├── BrandLogo.vue          # mintpop 品牌标识
+│   ├── BrandLogo.vue          # MintPop 品牌标识
 │   ├── PlaceholderPage.vue    # 占位页通用组件
 │   └── sections/
 │       ├── HeroSection.vue          # 首屏 Hero

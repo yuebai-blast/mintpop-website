@@ -12,26 +12,26 @@ export interface SeoEntry {
 export const SEO: Record<SeoRouteKey, SeoEntry> = {
   HOME: {
     path: '/',
-    title: 'mintpop — One API for text, vision, and voice',
+    title: 'MintPop — One API for text, vision, and voice',
     description:
-      'mintpop — multimodal AI infrastructure for developers. Build text, vision, and voice into your product through a single, unified endpoint.',
+      'MintPop — multimodal AI infrastructure for developers. Build text, vision, and voice into your product through a single, unified endpoint.',
   },
   LEGAL: {
     path: '/legal',
-    title: 'Legal — mintpop',
+    title: 'Legal — MintPop',
     description:
-      'Terms of Service, Privacy Policy, Refund Policy, Acceptable Use and contact details for mintpop.',
+      'Terms of Service, Privacy Policy, Refund Policy, Acceptable Use and contact details for MintPop.',
   },
   LOGIN: {
     path: '/login',
-    title: 'Login — mintpop',
-    description: 'Sign in to your mintpop account.',
+    title: 'Login — MintPop',
+    description: 'Sign in to your MintPop account.',
     noindex: true,
   },
   REGISTER: {
     path: '/register',
-    title: 'Get Started — mintpop',
-    description: 'Create a mintpop account and start building multimodal AI.',
+    title: 'Get Started — MintPop',
+    description: 'Create a MintPop account and start building multimodal AI.',
     noindex: true,
   },
 }

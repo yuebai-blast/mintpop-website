@@ -13,7 +13,7 @@ import { CONSOLE_URL } from '@/config/site'
       <div class="badge">
         <span class="badge-icon">✦</span>
         <span class="badge-text">
-          mintpop &nbsp;·&nbsp; Multimodal AI infrastructure for developers
+          MintPop &nbsp;·&nbsp; Multimodal AI infrastructure for developers
         </span>
       </div>
 
