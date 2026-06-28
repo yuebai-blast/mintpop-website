@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { CONSOLE_URL } from '@/config/site'
 </script>
 
 <template>
@@ -29,7 +29,12 @@ import { RouterLink } from 'vue-router'
       <p class="byline">Built by Energyline &nbsp;·&nbsp; Based in the United States</p>
 
       <div class="cta-row">
-        <RouterLink to="/register" class="btn btn-primary">
+        <a
+          :href="CONSOLE_URL"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-primary"
+        >
           Get Started
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
             <path
@@ -40,7 +45,7 @@ import { RouterLink } from 'vue-router'
               stroke-linejoin="round"
             />
           </svg>
-        </RouterLink>
+        </a>
         <a href="#capabilities" class="btn btn-ghost">Explore capabilities</a>
       </div>
 
