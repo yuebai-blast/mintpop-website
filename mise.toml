@@ -6,13 +6,9 @@ pnpm = "11.9.0"
 [tasks.install]
 description = "安装/更新项目全部依赖（默认可写回 lockfile；--frozen 按 lockfile 精确还原，CI/镜像构建用）"
 usage = 'flag "--frozen" help="按 lockfile 精确安装、不写回（可复现构建：CI 与镜像构建用）"'
-run = '''
-if [ "${usage_frozen:-}" = "true" ]; then
-  pnpm install --frozen-lockfile
-else
-  pnpm install
-fi
-'''
+# 默认本地：素的 pnpm install（可更新 lockfile）；--frozen 时追加 --frozen-lockfile
+# 注意：--frozen 不能加 default，否则不传时 usage_frozen 会是字符串 "false"，:+ 会误判而总是追加
+run = "pnpm install ${usage_frozen:+--frozen-lockfile}"
 
 [tasks.run]
 description = "启动开发服务器（唯一需要启动的组件）"
