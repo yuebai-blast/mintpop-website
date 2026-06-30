@@ -1,4 +1,5 @@
 /// <reference types="vite-ssg" />
+/// <reference types="vitest/config" />
 import { fileURLToPath, URL } from 'node:url'
 import { writeFile } from 'node:fs/promises'
 
@@ -33,5 +34,11 @@ ${body}
       await writeFile('dist/sitemap.xml', xml)
       console.log('Sitemap written to dist/sitemap.xml')
     },
+  },
+  // 单元测试(Vitest):测纯逻辑与 composables,故需 jsdom 提供 window/localStorage 等浏览器全局
+  test: {
+    environment: 'jsdom',
+    // jsdom 不实现 matchMedia 等,在 setup 里 stub,避免 useTheme 读取系统偏好时抛错
+    setupFiles: ['./vitest.setup.ts'],
   },
 })

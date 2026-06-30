@@ -30,6 +30,10 @@ run = "pnpm vue-tsc -b"
 description = "ESLint 代码检查（CI 门禁用，不自动改写；本地修复加 --fix）"
 run = "pnpm eslint ."
 
+[tasks.test]
+description = "运行单元测试（Vitest，单次跑完退出，CI 门禁用；本地监听加 --watch）"
+run = "pnpm vitest run"
+
 [tasks.image]
 description = "构建生产镜像（多阶段：mise 构建 dist + nginx 托管）"
 # 不设 dir：默认在仓库根（mise.toml 所在地）运行，末尾 . 即根 context

@@ -23,6 +23,9 @@ jobs:
       - name: Lint
         run: mise run lint
 
+      - name: Test
+        run: mise run test
+
       # build 任务内含 vue-tsc 类型检查（vue-tsc -b && vite build）
       - name: Typecheck & Build
         run: mise run build
