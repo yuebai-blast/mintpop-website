@@ -97,7 +97,7 @@ TAG="v${VERSION}"
 [ "$(git rev-list --count HEAD..origin/main)" = "0" ] || { echo "本地 main 落后于 origin/main，请先 pull。" >&2; exit 1; }
 
 # 版本号承载在 package.json：先改并提交，再打 tag
-npm version "$VERSION" --no-git-tag-version --allow-same-version >/dev/null
+pnpm version "$VERSION" --no-git-tag-version --allow-same-version >/dev/null
 if [ -n "$(git status --porcelain)" ]; then
   git add package.json && git commit -m "chore: release ${TAG}"
 fi

@@ -1,7 +1,7 @@
 # 流水线信使：集中监听各顶层 workflow 的运行结果，成功/失败都私聊推送到飞书。
 # 通知逻辑全在 yuebai-blast/feishu-notify-action（改一处、各仓库 @v1 自动跟随）；
 # 本文件只做「监听 + 接线」，因 workflow_run 只能监听本仓库，故每个仓库各放一份。
-name: Repo Notify
+name: Action Notify
 
 on:
   workflow_run:
